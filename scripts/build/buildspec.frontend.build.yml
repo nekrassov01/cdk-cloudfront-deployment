@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+  pre_build:
+    commands:
+      - bash scripts/build/bin/install.awscliv2.sh
+  build:
+    commands:
+      - bash scripts/build/bin/frontend.build.sh src/s3/hosting
+artifacts:
+  files:
+    - "**/*"

@@ -1,0 +1,15 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - bash scripts/build/bin/install.awscliv2.sh
+  build:
+    commands:
+      - bash scripts/build/bin/frontend.deploy.s3.sh src/s3/hosting/build/
+      - bash scripts/build/bin/frontend.deploy.cfcd.sh
+  post_build:
+    commands:
+      - bash scripts/build/bin/frontend.invalidate.sh
+artifacts:
+  files:
+    - "**/*"

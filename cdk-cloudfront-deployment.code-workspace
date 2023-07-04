@@ -1,0 +1,22 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "."
+    },
+    {
+      "name": "frontend",
+      "path": "src/s3/hosting"
+    },
+    {
+      "name": "scripts",
+      "path": "scripts"
+    }
+  ],
+  "settings": {
+    "jest.autoRun": "off",
+    "jest.jestCommandLine": "npm run test --",
+    "jest.disabledWorkspaceFolders": ["root", "scripts"],
+    "json.schemaDownload.enable": true
+  }
+}
