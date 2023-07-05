@@ -637,7 +637,11 @@ export class CloudFrontDeploymentSampleCicdStack extends Stack {
               }),
               new iam.PolicyStatement({
                 effect: iam.Effect.ALLOW,
-                actions: ["cloudfront:GetContinuousDeploymentPolicy", "cloudfront:DeleteContinuousDeploymentPolicy"],
+                actions: [
+                  "cloudfront:GetContinuousDeploymentPolicy",
+                  "cloudfront:DeleteContinuousDeploymentPolicy",
+                  "cloudfront:ListContinuousDeploymentPolicies",
+                ],
                 resources: [`arn:aws:cloudfront::${this.account}:continuous-deployment-policy/*`],
               }),
               new iam.PolicyStatement({
