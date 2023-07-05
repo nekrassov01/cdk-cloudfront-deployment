@@ -8,7 +8,7 @@ SyntaxHighlighter.registerLanguage("json", json);
 
 function App() {
   return (
-    <div className="dark-container">
+    <div className="container">
       <SyntaxHighlighter language="json" style={githubGist}>
         {JSON.stringify({ version: process.env.REACT_APP_VERSION_FRONTEND }, null, 2)}
       </SyntaxHighlighter>
