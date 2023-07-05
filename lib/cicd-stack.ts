@@ -349,9 +349,8 @@ export class CloudFrontDeploymentSampleCicdStack extends Stack {
       branch: branch,
       output: frontendSourceOutput,
       role: frontendSourceActionRole,
-      eventRole: frontendSourceActionEventRole,
       runOrder: 1,
-      trigger: codepipeline_actions.CodeCommitTrigger.EVENTS,
+      trigger: codepipeline_actions.CodeCommitTrigger.NONE,
     });
 
     // Create frontend pipeline action for build stag
@@ -421,7 +420,7 @@ export class CloudFrontDeploymentSampleCicdStack extends Stack {
     });
 
     // Create frontend pipeline
-    const frontendPipeline = new codepipeline.Pipeline(this, "Pipeline", {
+    const frontendPipeline = new codepipeline.Pipeline(this, "FrontendPipeline", {
       pipelineName: `${serviceName}-frontend-pipeline`,
       role: frontendPipelineRole,
       artifactBucket: frontendArtifactBucket,
@@ -446,6 +445,26 @@ export class CloudFrontDeploymentSampleCicdStack extends Stack {
       stageName: promoteStageName,
       actions: [frontendPromoteAction],
     });
+
+    // Create eventbridge rule when source change
+    const frontendSourceActionEventRule = new events.Rule(this, "FrontendSourceActionEventRule", {
+      enabled: true,
+      ruleName: `${serviceName}-frontend-source-rule`,
+      eventPattern: {
+        source: ["aws.codecommit"],
+        detailType: ["CodeCommit Repository State Change"],
+        resources: [codeCommitRepository.repositoryArn],
+        detail: {
+          event: ["referenceUpdated"],
+          referenceName: [branch],
+        },
+      },
+    });
+    frontendSourceActionEventRule.addTarget(
+      new events_targets.CodePipeline(frontendPipeline, {
+        eventRole: frontendSourceActionEventRole,
+      })
+    );
 
     // Add policy to frontend artifact bucket
     frontendArtifactBucket.addToResourcePolicy(
