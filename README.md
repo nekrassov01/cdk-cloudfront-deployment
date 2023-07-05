@@ -18,7 +18,7 @@ First, define the context as follows:
     "branch": "main",
     "hostedZoneName": "your-domain.com",
     "webAclArn": "dummy-arn",
-    "buildspecDir": "../buildspec",
+    "buildspecDir": "scripts/build",
     "cloudfrontConfig": {
       "singleHeaderConfig": {
         "header": "aws-cf-cd-staging",

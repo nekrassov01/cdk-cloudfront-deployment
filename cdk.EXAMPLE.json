@@ -49,7 +49,7 @@
     "branch": "main",
     "hostedZoneName": "your-domain.com",
     "webAclArn": "dummy-arn",
-    "buildspecDir": "src/codebuild/scripts",
+    "buildspecDir": "scripts/build",
     "cloudfrontConfig": {
       "singleHeaderConfig": {
         "header": "aws-cf-cd-staging",
