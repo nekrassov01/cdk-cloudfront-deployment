@@ -314,7 +314,7 @@ export class CloudFrontDeploymentSampleCicdStack extends Stack {
 
     // Create event role for frontend
     const frontendSourceActionEventRole = new iam.Role(this, "FrontendSourceActionEventRole", {
-      roleName: `${serviceName}-frontend-event-role`,
+      roleName: `${serviceName}-frontend-source-event-role`,
       assumedBy: new iam.ServicePrincipal("events.amazonaws.com"),
     });
 
@@ -608,7 +608,7 @@ export class CloudFrontDeploymentSampleCicdStack extends Stack {
 
       // Create codebuild project role when approval failed
       const frontendPurgeProjectRole = new iam.Role(this, "FrontendPurgeProjectRole", {
-        roleName: `${serviceName}-fronten-purge-project-role`,
+        roleName: `${serviceName}-frontend-purge-project-role`,
         assumedBy: new iam.ServicePrincipal("codebuild.amazonaws.com"),
         inlinePolicies: {
           ["FrontendPurgeProjectRoleAdditionalPolicy"]: new iam.PolicyDocument({
